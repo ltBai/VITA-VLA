@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="An Iterative Refinement-based Framework for Training-free Segmentation.">
+  <meta name="keywords" content="Semantic Segmentation, Stable Diffusion, Attention Mechanism, Iterative Refinement">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <title>VITA-VLA</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/icon.png">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+
+
+</head>
+<body>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">VITA-VLA: Efficiently Teaching Vision-Language Models to Act via Action Expert Distillation</h1>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><a href="https://github.com/ltBai">Shaoqi Dong</a><sup>1</sup>,</span>
+            <span class="author-block"><a href="https://github.com/BradyFU">Chaoyou Fu</a></a><sup>1,†</sup>,</span>
+            <span class="author-block"><a href="https://openreview.net/profile?id=~Haihan_Gao1">Haihan Gao</a><sup>2</sup>,</span>
+            <span class="author-block"><a href="https://openreview.net/profile?id=~YiFan_Zhang8">Yi-Fan Zhang</a><sup>3</sup>,</span>
+            <span class="author-block"><a href="https://openreview.net/profile?id=~Chi_Yan2">Chi Yan</a><sup>2</sup>,</span>
+            <span class="author-block"><a href="https://openreview.net/profile?id=~Chu_Wu1">Chu Wu</a><sup>1</sup>,</span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><a href="https://github.com/lxysl">Xiaoyu Liu</a><sup>1</sup>,</span>
+            <span class="author-block"><a href="https://scholar.google.com/citations?user=29teR74AAAAJ&hl=zh-CN&oi=ao">Yunhang Shen</a><sup>2</sup>,</span>
+            <span class="author-block"><a href="https://scholar.google.com/citations?hl=zh-CN&user=HKK1BdgAAAAJ">Jing Huo</a><sup>1</sup>,</span>
+            <span class="author-block"><a href="https://scholar.google.com/citations?hl=zh-CN&user=v4AK2MQAAAAJ">Deqiang Jiang</a><sup>2</sup>,</span>
+            <span class="author-block"><a href="https://scholar.google.com/citations?hl=zh-CN&user=LV8ejn8AAAAJ">Haoyu Cao</a><sup>2,‡</sup>,</span>
+            <span class="author-block"><a href="https://scholar.google.com/citations?hl=zh-CN&user=k0jjQo8AAAAJ">Yang Gao</a><sup>1</sup>,</span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><a href="https://scholar.google.com/citations?hl=zh-CN&user=IUtix9IAAAAJ">Xing Sun</a><sup>2</sup>,</span>
+            <span class="author-block"><a href="https://scholar.google.com/citations?hl=zh-CN&user=ayrg9AUAAAAJ">Ran He</a><sup>3</sup>,</span>
+            <span class="author-block"><a href="https://scholar.google.com/citations?hl=zh-CN&user=fIXA_SsAAAAJ">Caifeng Shan</a><sup>1</sup></span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>Nanjing University,</span>
+            <span class="author-block"><sup>2</sup>Tencent Youtu Lab,</span>
+            <span class="author-block"><sup>3</sup>CASIA</span>
+          </div>
+
+          <div class="is-size-6 publication-authors">
+            <span class="author-block">sqdong@smail.nju.edu.cn</span>,
+            <span class="author-block">† Corresponding author</span>,
+            <span class="author-block">‡ Project leader</span>
+          </div>
+
+ 
+
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="static/files/VITA-VLA.pdf"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <!-- Arxiv Link. -->
+              <span class="link-block">
+                <a href=" "
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code(Soon)</span>
+                  </a>
+              </span>
+              <!-- Video Link. -->
+              <!-- <span class="link-block">
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-video"></i>
+                  </span>
+                  <span>Video</span>
+                  </a>
+              </span> -->
+               
+              <!-- Video Link. -->
+              <!-- <span class="link-block">
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-chalkboard-teacher"></i>
+                  </span>
+                  <span>Talk@具身智能之心</span>
+                  </a>
+              </span> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Intro-->
+<section class="hero teaser">
+  <div class="columns is-centered has-text-centered">
+    <div class="column is-four-fifths">
+      <!-- <h2 class="title is-3">Introduction</h2> -->
+      <div style="width:80%; margin:0 auto;">
+        <img src="static/images/teaser.png" style="width:100%; height:auto; margin-bottom:1rem;">
+        <p class="has-text-justified is-size-6" style="margin-top:1rem;">
+          <b>Overview of mainstream VLA architectures.</b>
+          (1). Discretization-based methods convert actions into tokens and directly decode them using visual and language features, but omit robot state information, which is crucial for physical dynamics.
+          (2). Diffusion-based approaches extract vision-language features with a VLM, but offload action generation to an action expert, making the VLM a passive feature extractor.
+          (3). Our method introduces a state encoder and action query token, retains the full VLM, and distills knowledge from an expert model to achieve high reasoning and efficiency.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Abstract -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+ 
+          
+          <p>
+            Vision-Language Action (VLA) models significantly advance robotic manipulation by leveraging the strong perception capabilities of pretrained vision-language models (VLMs). 
+            By integrating action modules into these pretrained models, VLA methods exhibit improved generalization and robustness. 
+            However, training them end-to-end is costly, as modeling action distributions typically requires massive datasets and heavy computation. 
+            <!-- Temporal context is essential for robotic manipulation because such tasks are inherently <b>non-Markovian</b>, yet mainstream VLA models typically overlook it and struggle with long-horizon, temporally dependent tasks.
+            <b>Cognitive science</b> suggests that humans rely on working memory to buffer short-lived representations for immediate control, while the <b>hippocampal</b> system preserves verbatim episodic details and semantic gist of past experience for long-term memory. -->
+          </p>
+          <p>
+            In this work, we propose a simple yet effective distillation-based framework that equips VLMs with action-execution capability by transferring knowledge from pretrained small action models. 
+            Our architecture retains the original VLM structure, adding only an action token and a state encoder to incorporate physical inputs, as illustrated in Figure 1. To distill action knowledge, we adopt a two-stage training strategy. 
+            First, we perform lightweight alignment by mapping VLM hidden states into the action space of the small action model, enabling effective reuse of its pretrained action decoder and avoiding expensive end-to-end pretraining. This also facilitates better transfer of action modeling capabilities to the VLM. 
+            Second, we selectively fine-tune the language model, state encoder, and action modules, enabling the system to integrate multimodal inputs with precise action generation. Specifically, the action token provides the VLM with a direct handle for predicting future actions, while the state encoder allows the model to incorporate robot dynamics not captured by vision alone. 
+          </p>
+          <p>
+            This design yields substantial efficiency gains over training large VLA models from scratch. 
+            Compared with previous state-of-the-art methods, our method achieves 97.3\% average success rate on LIBERO (11.8\% improvement), 93.5\% on LIBERO-LONG (24.5\% improvement), 92.5\% first task success rate on CALVIN ABC-D (4.1\% improvement). 
+            In real-world experiments across five manipulation tasks, our method consistently outperforms the teacher model Seer, achieving 82.0\% average success rate (17\% improvement). 
+            These results demonstrate that action distillation effectively enables VLMs to generate precise, executable actions while substantially reducing training costs.
+      
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Framework -->
+<section class="hero teaser">
+  <div class="columns is-centered">
+    <div class="column is-four-fifths has-text-centered">
+      <h2 class="title is-3 mb-5">Framework</h2>
+      <div style="width:80%; margin:0 auto;">
+        <img src="static/images/model_arch.png"
+             style="width:100%; height:auto; margin-bottom:1rem;">
+        <p class="has-text-justified is-size-6 "
+           style="margin-top:1rem; margin-bottom:2.5rem;">
+          <b>Overall architecture of VITA-VLA.</b> 
+          Our model is build upon VITA1.5-7B, taking images, instructions, action tokens, and state information as inputs to generate executable actions. 
+          The visual and textual information is input into the VLM. The action token acts as a learnable query, while the robot state is encoded into a single token using linear layers.
+          An action mapper extracts the hidden states of the action token from the final layer of the VLM, and transforms these to match the dimensionality expected by the pretrained action decoder, and finally the action decoder generates the corresponding actions with 7 degrees of freedom (DoF).
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Modules -->
+<section class="hero teaser">
+  <div class="columns is-centered">
+    <div class="column is-four-fifths has-text-centered">
+      <h2 class="title is-3 mb-5">Traing strategy</h2>
+      <div style="width:75%; margin:0 auto;">
+        <img src="static/images/train_stra.png"
+             style="width:100%; height:auto; margin-bottom:1rem;">
+        <p class="has-text-justified is-size-6 "
+           style="margin-top:1rem; margin-bottom:2.5rem;">
+          Our training strategy comprises <b>two stages</b>. 
+          In the <b>alignment stage</b>, we train the action mapper, action tokens, and state encoder 
+          to bridge the gap between the action output spaces of the VLM and the small action model, 
+          updating only 30 million parameters while achieving improved fine-tuning outcomes. 
+          In the <b>fine-tuning stage</b>, we then perform end-to-end optimization of the entire model 
+          to further enhance overall performance.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Experimental Setup -->
+<section class="hero teaser">
+  <div class="columns is-centered">
+    <div class="column is-four-fifths has-text-centered">
+      <h2 class="title is-3 mb-5">Real World Tasks</h2>
+      <div style="width:80%; margin:0 auto;">
+        <img src="static/images/real_setting.png"
+             style="width:100%; height:auto; margin-bottom:1rem;">
+        <p class="has-text-justified is-size-6"
+           style="margin-top:-1rem; margin-bottom:2.5rem;margin-left:4rem;">
+          We design five real-world tasks to comprehensively evaluate the model’s capabilities, covering four canonical robotic operations: <b>Pick, Place, Close, and Stack</b>. 
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Real Robots Setup -->
+<section class="hero teaser">
+  <div class="columns is-centered">
+    <div class="column is-four-fifths has-text-centered">
+      <h2 class="title is-3 mb-5">Real Robots Setup</h2>
+      <div style="display:flex; justify-content:center; gap:20px; align-items:stretch;">
+        <div style="flex:1; display:flex; align-items:center; justify-content:center;">
+          <p class="has-text-justified is-size-6"
+            style="margin-top:1rem; margin-left:15rem; margin-bottom:2.5rem;">
+            <b>Experimental setup overview.</b> 
+              Our real-world robotic platform is illustrated in right. 
+              The setup consists of two cameras: a base-mounted Intel RealSense D435i RGB-D camera with a resolution of 1280×720, 
+              and a gripper-mounted Dabai DCW depth camera with a resolution of 640×480, providing complementary viewpoints for perception.
+              The robot itself is a PiPer arm with six actuated joints, controlled in radians, equipped with a Songling parallel gripper whose opening width is directly commanded for grasping. 
+              This combination allows both global scene observation and fine-grained local perception at the end-effector, facilitating precise manipulation. Demonstration data were collected via teleoperation, and the same hardware was used for inference. 
+              The platform is powered by a workstation with a single GPU, on which our model runs at approximately 0.15s per inference step (about 6--7 Hz).
+          </p>
+          <!-- <img src="static/images/real_setting.png" 
+               style="max-height:400px; width:auto; max-width:100%; object-fit:contain;"> -->
+        </div>
+        <div style="flex:1; display:flex; align-items:center; justify-content:center;">
+          <img src="static/images/real_environ.png" 
+               style="max-height:500px; width:auto; max-width:100%; object-fit:contain;">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Video -->
+<section class="hero teaser">
+  <div class="columns is-centered">
+    <div class="column is-four-fifths has-text-centered">
+      <!-- Real -->
+      <h2 class="title is-3 mt-6">Real-world Evaluation</h2>
+ 
+      <div class="columns is-multiline">
+        <div class="column is-one-quarter">
+          <video controls width="100%">
+            <source src="static/videos/Real/open_drawer_1080p.mp4" type="video/mp4">
+          </video>
+          <p class="is-size-6">Open Drawer</p>
+        </div>
+        <div class="column is-one-quarter">
+          <video controls width="100%">
+            <source src="static/videos/Real/pick_block_1080p.mp4" type="video/mp4">
+          </video>
+          <p class="is-size-6">Pick Place Red Block</p>
+        </div>
+        <div class="column is-one-quarter">
+          <video controls width="100%">
+            <source src="static/videos/Real/pick_sponge_1080p.mp4" type="video/mp4">
+          </video>
+          <p class="is-size-6">Pick Place Sponge</p>
+        </div>
+        <div class="column is-one-quarter">
+          <video controls width="100%">
+            <source src="static/videos/Real/stack_block_1080p.mp4" type="video/mp4">
+          </video>
+          <p class="is-size-6">Stack Blocks</p>
+        </div>
+        <div class="column is-one-quarter">
+          <video controls width="100%">
+            <source src="static/videos/Real/stack_cup_1080p.mp4" type="video/mp4">
+          </video>
+          <p class="is-size-6">Stack Cups</p>
+        </div>
+      </div>
+
+      <!-- LIBERO -->
+      <h2 class="title is-3 mt-6">LIBERO Simulation Evaluation</h2>
+
+      <!-- LIBERO-Spatial -->
+      <h3 class="title is-4 mt-4">LIBERO-Spatial Tasks</h3>
+      <div class="columns is-multiline">
+        <div class="column is-one-quarter">
+          <video controls width="100%">
+            <source src="static/videos/LIBERO/LIBERO-Spatial/pick_up_the_black_bowl_between_the_plate_and_the_ramekin_and_place_it_on_the_plate_9_trans.mp4" type="video/mp4">
+          </video>
+          <p class="is-size-6">Bowl: Between Plate and Ramekin → Plate</p>
+        </div>
+        <div class="column is-one-quarter">
+          <video controls width="100%">
+            <source src="static/videos/LIBERO/LIBERO-Spatial/pick_up_the_black_bowl_in_the_top_drawer_of_the_wooden_cabinet_and_place_it_on_the_plate_211_trans.mp4" type="video/mp4">
+          </video>
+          <p class="is-size-6">Bowl: Wooden Cabinet → Plate</p>
+        </div>
+        <div class="column is-one-quarter">
+          <video controls width="100%">
+            <source src="static/videos/LIBERO/LIBERO-Spatial/pick_up_the_black_bowl_on_the_cookie_box_and_place_it_on_the_plate_172_trans.mp4" type="video/mp4">
+          </video>
+          <p class="is-size-6">Bowl: Cookie Box → Plate</p>
+        </div>
+        <div class="column is-one-quarter">
+          <video controls width="100%">
+            <source src="static/videos/LIBERO/LIBERO-Spatial/pick_up_the_black_bowl_on_the_stove_and_place_it_on_the_plate_101_trans.mp4" type="video/mp4">
+          </video>
+          <p class="is-size-6">Bowl: Stove → Plate</p>
+        </div>
+      </div>
+
+      <!-- LIBERO-Object -->
+      <h3 class="title is-4 mt-4">LIBERO-Object Tasks</h3>
+      <div class="columns is-multiline">
+        <div class="column is-one-quarter">
+          <video controls width="100%">
+            <source src="static/videos/LIBERO/LIBERO-Object/bbq_sauce_in_basket_154_trans.mp4" type="video/mp4">
+          </video>
+          <p class="is-size-6">Bbq Sauce in Basket</p>
+        </div>
+        <div class="column is-one-quarter">
+          <video controls width="100%">
+            <source src="static/videos/LIBERO/LIBERO-Object/cream_cheese__basket_trans.mp4" type="video/mp4">
+          </video>
+          <p class="is-size-6">Cream Cheese in Basket</p>
+        </div>
+        <div class="column is-one-quarter">
+          <video controls width="100%">
+            <source src="static/videos/LIBERO/LIBERO-Object/ketchup_in_basket_trans.mp4" type="video/mp4">
+          </video>
+          <p class="is-size-6">Ketchup in Basket</p>
+        </div>
+        <div class="column is-one-quarter">
+          <video controls width="100%">
+            <source src="static/videos/LIBERO/LIBERO-Object/milk_basket_trans.mp4" type="video/mp4">
+          </video>
+          <p class="is-size-6">Milk in Basket</p>
+        </div>
+      </div>
+
+      <!-- LIBERO-Goal -->
+      <h3 class="title is-4 mt-4">LIBERO-Goal Tasks</h3>
+      <div class="columns is-multiline">
+        <div class="column is-one-quarter">
+          <video controls width="100%">
+            <source src="static/videos/LIBERO/LIBERO-Goal/cream_in_bowl_trans.mp4" type="video/mp4">
+          </video>
+          <p class="is-size-6">Cream in Bowl</p>
+        </div>
+        <div class="column is-one-quarter">
+          <video controls width="100%">
+            <source src="static/videos/LIBERO/LIBERO-Goal/open_top_drawer_put_bowl_trans.mp4" type="video/mp4">
+          </video>
+          <p class="is-size-6">Open Top Drawer & Put Bowl In</p>
+        </div>
+        <div class="column is-one-quarter">
+          <video controls width="100%">
+            <source src="static/videos/LIBERO/LIBERO-Goal/plate_front_of__stove_trans.mp4" type="video/mp4">
+          </video>
+          <p class="is-size-6">Push Plate to Front of Stove</p>
+        </div>
+        <div class="column is-one-quarter">
+          <video controls width="100%">
+            <source src="static/videos/LIBERO/LIBERO-Goal/wine_bottle_top_of__cabinet_trans.mp4" type="video/mp4">
+          </video>
+          <p class="is-size-6">Put Wine Bottle on Top of Cabinet</p>
+        </div>
+      </div>
+
+      <!-- LIBERO-Long -->
+      <h3 class="title is-4 mt-4">LIBERO-Long Tasks</h3>
+      <div class="columns is-multiline">
+        <div class="column is-one-quarter">
+          <video controls width="100%">
+            <source src="static/videos/LIBERO/LIBERO-Long/put_both_the_cream_cheese_box_and_the_butter_in_the_basket_14_trans.mp4" type="video/mp4">
+          </video>
+          <p class="is-size-6">Cream Cheese Box &amp; Butter in Basket</p>
+        </div>
+        <div class="column is-one-quarter">
+          <video controls width="100%">
+            <source src="static/videos/LIBERO/LIBERO-Long/put_the_white_mug_on_the_plate_and_put_the_chocolate_pudding_to_the_right_of_the_plate_6_trans.mp4" type="video/mp4">
+          </video>
+          <p class="is-size-6">White Mug Plate &amp; Chocolate Pudding Right Plate</p>
+        </div>
+        <div class="column is-one-quarter">
+          <video controls width="100%">
+            <source src="static/videos/LIBERO/LIBERO-Long/turn_on_the_stove_and_put_the_moka_pot_on_it_24_trans.mp4" type="video/mp4">
+          </video>
+          <p class="is-size-6">Turn On Stove &amp; Put Moka Pot</p>
+        </div>
+        <div class="column is-one-quarter">
+          <video controls width="100%">
+            <source src="static/videos/LIBERO/LIBERO-Long/pick_book_place_in_back_compartment_of_the_caddy_trans.mp4" type="video/mp4">
+          </video>
+          <p class="is-size-6">Pick Book &amp; Place in Back Compartment of Caddy</p>
+        </div>
+      </div>
+ 
+      <h2 class="title is-3 mt-6">CALVIN Simulation Evaluation</h2>
+ 
+      <h3 class="title is-4 mt-4">CALVIN ABC-D Tasks</h3>
+      <div class="columns is-multiline">
+        <div class="column is-one-quarter">
+          <video controls width="100%">
+            <source src="static/videos/CALVIN/go_push_the_pink_block_left_trans.mp4" type="video/mp4">
+          </video>
+          <p class="is-size-6">Push Pick Block Left</p>
+        </div> 
+        <div class="column is-one-quarter">
+          <video controls width="100%">
+            <source src="static/videos/CALVIN/lift_the_pink_block_from_the_sliding_cabinet_trans.mp4" type="video/mp4">
+          </video>
+          <p class="is-size-6">Lift Pink Block From Cabinet</p>
+        </div>
+        <div class="column is-one-quarter">
+          <video controls width="100%">
+            <source src="static/videos/CALVIN/press_the_button_to_turn_on_the_led_light_trans.mp4" type="video/mp4">
+          </video>
+          <p class="is-size-6">Turn on Led Light</p>
+        </div>
+        <div class="column is-one-quarter">
+          <video controls width="100%">
+            <source src="static/videos/CALVIN/push_the_handle_to_close_the_drawer_trans.mp4" type="video/mp4">
+          </video>
+          <p class="is-size-6">Close Drawer</p>
+        </div>
+        <div class="column is-one-quarter">
+          <video controls width="100%">
+            <source src="static/videos/CALVIN/store_the_grasped_block_in_the_drawer_trans.mp4" type="video/mp4">
+          </video>
+          <p class="is-size-6">Store Block in Drawer</p>
+        </div>
+        <div class="column is-one-quarter">
+          <video controls width="100%">
+            <source src="static/videos/CALVIN/Take_the_blue_block_from_the_drawer_trans.mp4" type="video/mp4">
+          </video>
+          <p class="is-size-6">Take Block From Drawer</p>
+        </div>
+        <div class="column is-one-quarter">
+          <video controls width="100%">
+            <source src="static/videos/CALVIN/take_the_pink_block_and_rotate_it_to_the_left_trans.mp4" type="video/mp4">
+          </video>
+          <p class="is-size-6">Turn Pick Block &amp; Rotate</p>
+        </div>
+        <div class="column is-one-quarter">
+          <video controls width="100%">
+            <source src="static/videos/CALVIN/use_the_switch_to_turn_off_the_light_bulb_trans.mp4" type="video/mp4">
+          </video>
+          <p class="is-size-6">Turn off Light Bulb</p>
+        </div>
+      </div>
+
+    </div>
+  </div> 
+</section>
+
+
+
+<!-- <section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@article{shi2025memoryvla,
+  title={MemoryVLA: Perceptual-Cognitive Memory in Vision-Language-Action Models for Robotic Manipulation},
+  author={Shi, Hao and Xie, Bin and Liu, Yingfei and Sun, Lin and Liu, Fengrong and Wang, Tiancai and Zhou, Erjin and Fan, Haoqiang and Zhang, Xiangyu and Huang, Gao},
+  journal={arXiv preprint arXiv:2508.19236},
+  year={2025}
+}
+    </code></pre>
+  </div>
+</section> -->
+
+<footer class="footer">
+  <div class="container">
+    <!-- <div class="content has-text-centered">
+      <a class="icon-link"
+         href="">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="" class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a>
+    </div> -->
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website refers to <a
+              href="https://shihao1895.github.io/MemoryVLA/">MemoryVLA</a>, and
+            is licensed under a <a rel="license"  href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
