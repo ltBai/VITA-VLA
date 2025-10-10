@@ -1,6 +1,6 @@
 # VITA-VLA
 
-This is the repository that contains source code for the [VITA-VLA website](https://shihao1895.github.io/MemoryVLA/).
+This is the repository that contains source code for the [VITA-VLA website](https://ltbai.github.io/VITA-VLA-Demo/).
 
 # Thanks
 
