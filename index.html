@@ -35,8 +35,9 @@
 
 </head>
 <body>
+
 <!-- 修复后的 Navbar 代码 -->
-<nav class="navbar is-light" role="navigation" aria-label="main navigation" style="box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+<nav class="navbar" role="navigation" aria-label="main navigation" style="background-color: white; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
   <div class="container">
     <div class="navbar-brand">
       <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarMenu">
@@ -90,9 +91,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 <!-- 如果需要自定义样式，添加这个CSS -->
 <style>
-/* 确保导航栏始终可见 */
+/* 确保导航栏始终可见 - 白色背景 */
 .navbar {
-  background-color: #f5f5f5;
+  background-color: white;
   min-height: 3.25rem;
 }
 
@@ -103,19 +104,24 @@ document.addEventListener('DOMContentLoaded', () => {
   flex-grow: 1;
 }
 
-/* 改善悬停效果 */
+/* 改善悬停效果 - 浅灰色 */
 .navbar-dropdown {
-  border-top: 2px solid #3273dc;
+  border-top: 2px solid #dbdbdb;
+  background-color: white;
 }
 
 .navbar-item:hover {
-  background-color: #f5f5f5;
+  background-color: #fafafa;
+}
+
+.navbar-link:hover {
+  background-color: #fafafa;
 }
 
 /* 移动端响应式 */
 @media screen and (max-width: 1023px) {
   .navbar-menu {
-    background-color: #f5f5f5;
+    background-color: white;
   }
 }
 </style>
