@@ -1,6 +1,6 @@
 # VITA-VLA
 
-This is the repository that contains source code for the [VITA-VLA website](https://ltbai.github.io/VITA-VLA-Demo/).
+This is the repository that contains source code for the [VITA-VLA website](https://ltbai.github.io/VITA-VLA/).
 
 # Thanks
 
