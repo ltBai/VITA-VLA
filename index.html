@@ -35,49 +35,90 @@
 
 </head>
 <body>
+<!-- 修复后的 Navbar 代码 -->
+<nav class="navbar is-light" role="navigation" aria-label="main navigation" style="box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+  <div class="container">
+    <div class="navbar-brand">
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarMenu">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
 
-<!-- Navbar -->
-<nav class="navbar" role="navigation" aria-label="main navigation">
-  <div class="navbar-brand">
-    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-    </a>
-  </div>
-  <div class="navbar-menu">
-    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
-      <div class="navbar-item has-dropdown is-hoverable">
-        <p style="font-size:18px; display: inline; margin-right: -2px; margin-top: 12px;">🔥</p>
-        <a class="navbar-link">
-          More Research
-        </a>
-        <div class="navbar-dropdown">
-          <a class="navbar-item" href="https://github.com/BradyFU/Awesome-Multimodal-Large-Language-Models">
-            <b>MME</b> 
+    <div id="navbarMenu" class="navbar-menu">
+      <div class="navbar-start" style="margin-left: auto; margin-right: auto;">
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link">
+            <span style="margin-right: 5px;">🔥</span>
+            More Research
           </a>
-          <a class="navbar-item" href="https://github.com/BradyFU/Awesome-Multimodal-Large-Language-Models">
-            <b>Awesome-MLLM</b> 
-          </a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="https://github.com/BradyFU/Awesome-Multimodal-Large-Language-Models" target="_blank">
+              <strong>MME</strong>
+            </a>
+            <a class="navbar-item" href="https://github.com/BradyFU/Awesome-Multimodal-Large-Language-Models" target="_blank">
+              <strong>Awesome-MLLM</strong>
+            </a>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </nav>
 
-<!-- Navbar JS for hamburger menu -->
+<!-- Navbar JS (修复后的版本) -->
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-  const burgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
-  burgers.forEach(el => {
+  // Get all "navbar-burger" elements
+  const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+
+  // Add a click event on each of them
+  $navbarBurgers.forEach(el => {
     el.addEventListener('click', () => {
-      const target = document.querySelector('.navbar-menu');
+      // Get the target from the "data-target" attribute
+      const target = el.dataset.target;
+      const $target = document.getElementById(target);
+
+      // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
       el.classList.toggle('is-active');
-      target.classList.toggle('is-active');
+      $target.classList.toggle('is-active');
     });
   });
 });
 </script>
+
+<!-- 如果需要自定义样式，添加这个CSS -->
+<style>
+/* 确保导航栏始终可见 */
+.navbar {
+  background-color: #f5f5f5;
+  min-height: 3.25rem;
+}
+
+/* 确保 More Research 居中显示 */
+.navbar-start {
+  display: flex;
+  justify-content: center;
+  flex-grow: 1;
+}
+
+/* 改善悬停效果 */
+.navbar-dropdown {
+  border-top: 2px solid #3273dc;
+}
+
+.navbar-item:hover {
+  background-color: #f5f5f5;
+}
+
+/* 移动端响应式 */
+@media screen and (max-width: 1023px) {
+  .navbar-menu {
+    background-color: #f5f5f5;
+  }
+}
+</style>
 
 
 <section class="hero">
