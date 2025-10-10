@@ -293,14 +293,7 @@ document.addEventListener('DOMContentLoaded', () => {
             Our architecture retains the original VLM structure, adding only an action token and a state encoder to incorporate physical inputs, as illustrated in Figure 1. To distill action knowledge, we adopt a two-stage training strategy. 
             First, we perform lightweight alignment by mapping VLM hidden states into the action space of the small action model, enabling effective reuse of its pretrained action decoder and avoiding expensive end-to-end pretraining. This also facilitates better transfer of action modeling capabilities to the VLM. 
             Second, we selectively fine-tune the language model, state encoder, and action modules, enabling the system to integrate multimodal inputs with precise action generation. Specifically, the action token provides the VLM with a direct handle for predicting future actions, while the state encoder allows the model to incorporate robot dynamics not captured by vision alone. 
-          </p>
-          <p>
-            This design yields substantial efficiency gains over training large VLA models from scratch. 
-            Compared with previous state-of-the-art methods, our method achieves 97.3% average success rate on LIBERO (11.8% improvement), 93.5% on LIBERO-LONG (24.5% improvement), 92.5% first task success rate on CALVIN ABC-D (4.1% improvement). 
-            In real-world experiments across five manipulation tasks, our method consistently outperforms the teacher model Seer, achieving 82.0% average success rate (17% improvement). 
-            These results demonstrate that action distillation effectively enables VLMs to generate precise, executable actions while substantially reducing training costs.
-      
-          </p>
+          </p> 
           <p>
             This design yields substantial efficiency gains over training large VLA models from scratch. 
             Compared with previous state-of-the-art methods, our method achieves <strong>97.3%</strong> average success rate on LIBERO (<strong>11.8%</strong> improvement), <strong>93.5%</strong> on LIBERO-LONG (<strong>24.5%</strong> improvement), <strong>92.5%</strong> first task success rate on CALVIN ABC-D (<strong>4.1%</strong> improvement). 
