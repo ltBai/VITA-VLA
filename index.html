@@ -188,8 +188,8 @@
           </p>
           <p>
             This design yields substantial efficiency gains over training large VLA models from scratch. 
-            Compared with previous state-of-the-art methods, our method achieves 97.3\% average success rate on LIBERO (11.8\% improvement), 93.5\% on LIBERO-LONG (24.5\% improvement), 92.5\% first task success rate on CALVIN ABC-D (4.1\% improvement). 
-            In real-world experiments across five manipulation tasks, our method consistently outperforms the teacher model Seer, achieving 82.0\% average success rate (17\% improvement). 
+            Compared with previous state-of-the-art methods, our method achieves 97.3% average success rate on LIBERO (11.8% improvement), 93.5% on LIBERO-LONG (24.5% improvement), 92.5% first task success rate on CALVIN ABC-D (4.1% improvement). 
+            In real-world experiments across five manipulation tasks, our method consistently outperforms the teacher model Seer, achieving 82.0% average success rate (17% improvement). 
             These results demonstrate that action distillation effectively enables VLMs to generate precise, executable actions while substantially reducing training costs.
       
           </p>
@@ -210,7 +210,7 @@
         <p class="has-text-justified is-size-6 "
            style="margin-top:1rem; margin-bottom:2.5rem;">
           <b>Overall architecture of VITA-VLA.</b> 
-          Our model is build upon VITA1.5-7B, taking images, instructions, action tokens, and state information as inputs to generate executable actions. 
+          Our model is build upon <a href="https://github.com/VITA-MLLM/VITA" target="_blank" rel="noopener noreferrer">VITA-1.5-7B</a>, taking images, instructions, action tokens, and state information as inputs to generate executable actions. 
           The visual and textual information is input into the VLM. The action token acts as a learnable query, while the robot state is encoded into a single token using linear layers.
           An action mapper extracts the hidden states of the action token from the final layer of the VLM, and transforms these to match the dimensionality expected by the pretrained action decoder, and finally the action decoder generates the corresponding actions with 7 degrees of freedom (DoF).
         </p>
