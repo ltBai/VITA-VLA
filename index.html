@@ -35,9 +35,11 @@
 
 </head>
 <body>
+ 
+
 
 <!-- 修复后的 Navbar 代码 -->
-<nav class="navbar" role="navigation" aria-label="main navigation" style="background-color: white; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+<nav class="navbar" role="navigation" aria-label="main navigation" style="background-color: white; box-shadow: none; border-bottom: none;">
   <div class="container">
     <div class="navbar-brand">
       <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarMenu">
@@ -60,6 +62,15 @@
             </a>
             <a class="navbar-item" href="https://github.com/BradyFU/Awesome-Multimodal-Large-Language-Models" target="_blank">
               <strong>Awesome-MLLM</strong>
+            </a>
+            <a class="navbar-item" href="https://github.com/VITA-MLLM/VITA" target="_blank">
+              <strong>VITA-1.5</strong>
+            </a>
+            <a class="navbar-item" href="https://github.com/VITA-MLLM/Long-VITA" target="_blank">
+              <strong>Long-VITA</strong>
+            </a>
+            <a class="navbar-item" href="https://github.com/MME-Benchmarks/Video-MME" target="_blank">
+              <strong>Video-MME</strong>
             </a>
           </div>
         </div>
@@ -91,10 +102,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
 <!-- 如果需要自定义样式，添加这个CSS -->
 <style>
-/* 确保导航栏始终可见 - 白色背景 */
+/* 确保导航栏始终可见 - 白色背景，无边框 */
 .navbar {
   background-color: white;
   min-height: 3.25rem;
+  box-shadow: none;
+  border: none;
 }
 
 /* 确保 More Research 居中显示 */
@@ -104,10 +117,11 @@ document.addEventListener('DOMContentLoaded', () => {
   flex-grow: 1;
 }
 
-/* 改善悬停效果 - 浅灰色 */
+/* 下拉菜单样式 - 无边框 */
 .navbar-dropdown {
-  border-top: 2px solid #dbdbdb;
+  border-top: none;
   background-color: white;
+  box-shadow: 0 8px 8px rgba(10, 10, 10, 0.1);
 }
 
 .navbar-item:hover {
@@ -122,6 +136,7 @@ document.addEventListener('DOMContentLoaded', () => {
 @media screen and (max-width: 1023px) {
   .navbar-menu {
     background-color: white;
+    box-shadow: none;
   }
 }
 </style>
