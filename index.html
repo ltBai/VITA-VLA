@@ -36,6 +36,49 @@
 </head>
 <body>
 
+<!-- Navbar -->
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <div class="navbar-item has-dropdown is-hoverable">
+        <p style="font-size:18px; display: inline; margin-right: -2px; margin-top: 12px;">🔥</p>
+        <a class="navbar-link">
+          More Research
+        </a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="https://github.com/BradyFU/Awesome-Multimodal-Large-Language-Models">
+            <b>MME</b> 
+          </a>
+          <a class="navbar-item" href="https://github.com/BradyFU/Awesome-Multimodal-Large-Language-Models">
+            <b>Awesome-MLLM</b> 
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- Navbar JS for hamburger menu -->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const burgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+  burgers.forEach(el => {
+    el.addEventListener('click', () => {
+      const target = document.querySelector('.navbar-menu');
+      el.classList.toggle('is-active');
+      target.classList.toggle('is-active');
+    });
+  });
+});
+</script>
+
 
 <section class="hero">
   <div class="hero-body">
